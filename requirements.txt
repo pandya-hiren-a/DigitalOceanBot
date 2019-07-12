@@ -54,6 +54,7 @@ python-dotenv==0.10.3
 python-jsonrpc-server==0.2.0
 python-language-server==0.27.0
 requests==2.22.0
+requests-cache==0.5.0
 rope==0.14.0
 scandir==1.10.0
 SecretStorage==2.3.1

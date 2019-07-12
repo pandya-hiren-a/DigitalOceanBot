@@ -3,13 +3,21 @@ from config.env import app_env
 from app.utils.slackhelper import SlackHelper
 from app.actions import Actions
 from flask import request, jsonify
+import requests_cache
+import time
 
+''' commands allowed by dostat bot '''
 allowed_commands = [
     'droplets'
     'restart'
     'status'
     'help'
 ]
+
+''' Cache requests to avoid unnecessary overhead on the server '''
+requests_cache.install_cache(
+    cache_name='digitalocean_cache', backend='sqlite', expire_after=180)
+''' main app entry point '''
 
 
 def create_app(config_name):
@@ -19,23 +27,29 @@ def create_app(config_name):
 
     @app.route("/dostat", methods=["POST"])
     def dostat():
+        ''' if POST request has been received, gather request body data and perform related actions '''
         command_text = request.data.get('text')
         command_text = command_text.split(' ')
-        # slack_uid = request.data.get('user_id')
+        ''' get SlackHelper object '''
         slackhelper = SlackHelper()
-        # slack_user_info = slackhelper.user_info(slack_uid)
+        ''' Get Actions class object '''
         actions = Actions(slackhelper)
 
+        ''' Check if provided command is present in the allowed command or not. '''
         if command_text[0] not in allowed_commands:
             response_body = {
                 'text': 'Invalid Command. Try /dostat help for available commands'}
 
+        ''' If the command is help, call help function from the actions class '''
         if command_text[0] == 'help':
             response_body = actions.help()
 
+        ''' If the command is 'droplet', call droplets function from the actions class '''
         if(command_text[0] in ['droplet', 'droplets']):
             response_body = actions.droplets()
 
+        ''' If the command is 'restart', first we need to make sure that there is a droplet name present after command
+            If not provided, display error, otherwise proceed further with appropriate function call from the actions class '''
         if(command_text[0] == 'restart'):
             if(command_text[1] == '' or command_text[1] == ' '):
                 response_body = {
@@ -50,6 +64,7 @@ def create_app(config_name):
             else:
                 response_body = actions.droplet_status(command_text[1])
 
+        ''' Prepare the response, add the response code, and return the object '''
         response = jsonify(response_body)
         response.status_code = 200
         return response
