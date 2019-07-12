@@ -19,7 +19,7 @@ class DoHelper:
         for droplet in allDroplets:
             self.dataTable.add_row(
                 [droplet.name, droplet.ip_address, droplet.status])
-        return self.dataTable
+        return str(self.dataTable)
 
     def droplet_status(self, droplet_name):
         droplets = self.manager.get_all_droplets()
@@ -27,7 +27,7 @@ class DoHelper:
             if(droplet.name == droplet_name):
                 self.dataTable.add_row(
                     [droplet.name, droplet.ip_address, droplet.status])
-                return self.dataTable
+                return str(self.dataTable)
         return "Error Code - Droplet Not Found"
 
     def droplet_restart(self, droplet_name):
