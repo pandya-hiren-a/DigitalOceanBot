@@ -19,7 +19,8 @@ Flask==1.1.1
 Flask-API==1.1
 funcsigs==1.0.2
 future==0.17.1
-futures==3.2.0
+futures==3.1.1
+gunicorn==19.9.0
 hashID==3.1.4
 idna==2.8
 importlib-metadata==0.18
@@ -46,7 +47,6 @@ pycodestyle==2.5.0
 pydocstyle==3.0.0
 pyflakes==2.1.1
 Pygments==2.2.0
-pygobject==3.26.1
 pylint==1.9.4
 pyOpenSSL==17.5.0
 python-digitalocean==1.13.2
