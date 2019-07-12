@@ -12,10 +12,10 @@ class Actions:
 
     def help(self):
         return {
-            'text': 'Available Commands: \n `/dobot droplets  e.g. /dobot droplets` \n To get all available droplets`\n'
-            ' \n `/dobot restart [droplet_name] e.g. /dobot restart nkn-droplet-client1` \n Restart mentioned droplet \n'
-                    ' \n `/dobot status [droplet_name] e.g. /dobot status nkn-droplet-client1` \n Display the status of mentioned droplet \n'
-                    ' \n `/dobot help` \n Displays this information \n \n Droplet Bot 1.0'}
+            'text': 'Available Commands: \n `/dostat droplets  e.g. /dostat droplets` \n To get all available droplets`\n'
+            ' \n `/dostat restart [droplet_name] e.g. /dostat restart nkn-droplet-client1` \n Restart mentioned droplet \n'
+                    ' \n `/dostat status [droplet_name] e.g. /dostat status nkn-droplet-client1` \n Display the status of mentioned droplet \n'
+                    ' \n `/dostat help` \n Displays this information \n \n Droplet Bot 1.0'}
 
     def droplets(self):
         # recipient = self.user_info['user']['id']
