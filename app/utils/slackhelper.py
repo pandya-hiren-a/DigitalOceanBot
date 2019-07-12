@@ -12,8 +12,7 @@ class SlackHelper:
         return self.slack_client.api_call(
             "chat.postMessage",
             channel=self.slack_channel,
-            text=msg,
-            as_user=True
+            text=msg
         )
 
     def post_message_to_channel(self, msg):
