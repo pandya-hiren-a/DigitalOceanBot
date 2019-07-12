@@ -46,7 +46,6 @@ pycodestyle==2.5.0
 pydocstyle==3.0.0
 pyflakes==2.1.1
 Pygments==2.2.0
-pygobject==3.32.2
 pylint==1.9.4
 pyOpenSSL==17.5.0
 python-digitalocean==1.13.2
