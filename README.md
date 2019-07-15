@@ -22,5 +22,6 @@ Helps in retrieving the status of all the droplets available on DigitalOcean.
 - [x] Heroku deployable code and dependencies
 - [x] Individual droplet status functionality
 - [x] Reboot droplet command
+- [x] Add request cache to reduce overhead on the server, works in the case of status command
 - [ ] Add more commands to interact with droplets
 - [ ] Add ssh connection functionality
