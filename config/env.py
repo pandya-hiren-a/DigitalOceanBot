@@ -1,5 +1,7 @@
 from config import get_env
 
+''' Setup evironment '''
+
 
 class EnvConfig(object):
     DEBUG = False
