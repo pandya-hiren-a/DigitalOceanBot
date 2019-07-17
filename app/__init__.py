@@ -71,7 +71,6 @@ def create_app(config_name):
         response = jsonify(response_body)
         response.status_code = 200
         return response
-    return app
 
     @app.route("/vustat", methods=["POST"])
     def vustat():
@@ -116,4 +115,5 @@ def create_app(config_name):
         response = jsonify(response_body)
         response.status_code = 200
         return response
+
     return app
