@@ -32,7 +32,7 @@ class SlackHelper:
             content=file_content,
             filename=file_name,
             filetype=file_type,
-            initial_comment='{} Log File'.format(file_name),
+            initial_comment='{} Data File'.format(file_name),
             title=title
         )
 
