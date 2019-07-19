@@ -15,6 +15,7 @@ allowed_commands = [
     'help'
     'instances'
     'instance'
+    'new'
 ]
 
 ''' Cache requests to avoid unnecessary overhead on the server '''
@@ -110,6 +111,34 @@ def create_app(config_name):
                     'text': 'Invalid Restart Command. Command format: `/vustat status [instance_label]`'}
             else:
                 response_body = actions.inst_status(command_text[1])
+
+        ''' Prepare the response, add the response code, and return the object '''
+        response = jsonify(response_body)
+        response.status_code = 200
+        return response
+
+    @app.route("/ipfile", methods=["POST"])
+    def getIpFile():
+        ''' Get the command from the post request '''
+        command_text = request.data.get('text')
+        command_text = command_text.split(' ')
+        ''' SlackHelper class instance '''
+        slackhelper = SlackHelper()
+        ''' Actions instance '''
+        actions = Actions(slackhelper)
+
+        ''' Check if provided command is present in the allowed command or not. '''
+        if command_text[0] not in allowed_commands:
+            response_body = {
+                'text': 'Invalid Command. Try /vustat help for available commands'}
+
+        ''' If the command is help, call help function from the actions class '''
+        if command_text[0] == 'help':
+            response_body = actions.ipfile_help()
+
+        ''' If the command is new, call the ipfile_new function from the action class '''
+        if command_text[0] == 'new':
+            response_body = actions.ipfile_new()
 
         ''' Prepare the response, add the response code, and return the object '''
         response = jsonify(response_body)

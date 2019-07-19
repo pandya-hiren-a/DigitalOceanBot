@@ -43,3 +43,12 @@ class VuHelper:
                 self.vultr.server.reboot(id)
                 return "Instance Rebooted"
         return "Error Code - Instance Not Found"
+
+    def instances_addresses(self):
+        ''' get all the available instances and take their ip addresses in an array '''
+        ipaddresses = []
+        instances = self.vultr.server.list()
+        for(id, data) in instances.items():
+            ipaddresses.append(data['main_ip'])
+        ''' Return the array to the caller '''
+        return ipaddresses

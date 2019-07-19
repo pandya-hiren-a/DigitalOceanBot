@@ -45,3 +45,11 @@ class DoHelper:
                 droplet.reboot
                 return "Droplet Restarted"
         return "Droplet not found"
+
+    def droplet_addresses(self):
+        ''' get all the droplets from the digitalocean and store ip addresses in an array '''
+        ipaddresses = []
+        droplets = self.manager.get_all_droplets()
+        for droplet in droplets:
+            ipaddresses.append(droplet.ip_address)
+        return ipaddresses
