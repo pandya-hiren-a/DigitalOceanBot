@@ -19,6 +19,6 @@ class SSHHelper:
         stdin, stdout, stderr = self.client.exec_command('sudo -l')
         ''' Check the channel for any command errors '''
         if(stdout.channel.recv_exit_status() == 0):
-            return stdout
+            return stdout.read()
         else:
             return "Command Failed"
