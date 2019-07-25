@@ -181,8 +181,7 @@ def create_app(config_name):
                         host = connectionString[0]
                         user = connectionString[1]
                         pwd = connectionString[2]
-                        response_body = actions.userPrivCheck(
-                            host, user, pwd)()
+                        response_body = actions.userPrivCheck(host, user, pwd)
             except IndexError:
                 response_body = {
                     'text': 'Invalid Command. \n Format: \n `/serverconnect usercheck host:username:password` \n Try again.'
