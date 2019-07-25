@@ -14,6 +14,7 @@ class SSHHelper:
         self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     def checkUserPriv(self, host, user, pwd):
+        self.client.connect(host, username=user, password=pwd)
         ''' Check what priviledges current user have '''
         stdin, stdout, stderr = self.client.exec_command('sudo -l')
         ''' Check the channel for any command errors '''
