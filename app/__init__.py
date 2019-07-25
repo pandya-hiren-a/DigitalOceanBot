@@ -164,18 +164,28 @@ def create_app(config_name):
         ''' If the command is usercheck, call user priviledges checking function from the actions class '''
         if command_text[0] == 'usercheck':
             try:
-                if(command_text[1] == "" or command_text[2] == "" or command_text[3] == ""):
+                ''' If after usercheck command, text is not present representing host:user:pwd, send an error response '''
+                if(command_text[1] == ""):
                     response_body = {
-                        'text': 'Invalid Command. Try /serverconnect help for available commands'
+                        'text': 'Invalid Command. \n Format: \n `/serverconnect usercheck host:username:password` \n Try again.'
                     }
                 else:
-                    host = command_text[1]
-                    user = command_text[2]
-                    pwd = command_text[3]
-                    response_body = actions.userPrivCheck(host, user, pwd)()
+                    ''' Further split command_text[1] to get host, user, and pwd '''
+                    connectionString = command_text[1].split(':')
+                    if(connectionString[0] == "" or connectionString[1] == "" or connectionString[2] == ""):
+                        response_body = {
+                            'text': 'Invalid Command. \n Format: \n `/serverconnect usercheck host:username:password` \n Try again.'
+                        }
+                    else:
+                        ''' After preparing variables, call appropriate function '''
+                        host = connectionString[0]
+                        user = connectionString[1]
+                        pwd = connectionString[2]
+                        response_body = actions.userPrivCheck(
+                            host, user, pwd)()
             except IndexError:
                 response_body = {
-                    'text': 'Invalid Command Format. Try /serverconnect help to check command format'
+                    'text': 'Invalid Command. \n Format: \n `/serverconnect usercheck host:username:password` \n Try again.'
                 }
 
         ''' Prepare the response, add the response code, and return the object '''
