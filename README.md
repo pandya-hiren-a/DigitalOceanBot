@@ -38,4 +38,4 @@ Helps to retrieve the status of all the instances available on Vultr.
 - [x] Add ip collection feature (All IP in one file)
 - [ ] Add more commands to interact with droplets of digitalocean
 - [ ] Add more commands to interact with instances of vultr
-- [ ] Add ssh connection functionality
+- [ ] Add ssh connection functionality (Ongoing - Branch: commands_over_ssh_to_servers)
