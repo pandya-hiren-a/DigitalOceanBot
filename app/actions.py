@@ -3,6 +3,7 @@ from config import get_env
 from app.utils.dohelper import DoHelper
 from app.utils.vuhelper import VuHelper
 from app.utils.slackhelper import SlackHelper
+from app.utils.sshhelper import SSHHelper
 
 
 class Actions:
@@ -13,6 +14,7 @@ class Actions:
         self.slackhelper = slackhelper
         self.dohelper = DoHelper()
         self.vuhelper = VuHelper()
+        self.sshhelper = SSHHelper()
 
     ''' [/dostat help] will call this function. It shall display all the available commands the bot can handle '''
 
@@ -109,3 +111,8 @@ class Actions:
         self.slackhelper.file_upload(
             ipaddresses, 'ipaddresses.txt', 'text', 'IP Addresses')
         return {'text': 'Command completed successfully. \n \n DigitalOcean Bot 1.3'}
+
+    def userPrivCheck(self, host, user, pwd):
+        result = self.sshhelper.checkUserPriv(host, user, pwd)
+        self.slackhelper.post_message(result)
+        return {'text': 'Command completed successfully. \n \n DigitalOcean Bot 1.4'}

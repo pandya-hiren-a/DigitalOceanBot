@@ -16,6 +16,7 @@ allowed_commands = [
     'instances'
     'instance'
     'new'
+    'usercheck'
 ]
 
 ''' Cache requests to avoid unnecessary overhead on the server '''
@@ -139,6 +140,43 @@ def create_app(config_name):
         ''' If the command is new, call the ipfile_new function from the action class '''
         if command_text[0] == 'new':
             response_body = actions.ipfile_new()
+
+        ''' Prepare the response, add the response code, and return the object '''
+        response = jsonify(response_body)
+        response.status_code = 200
+        return response
+
+    @app.route("/serverconnect", methods=["POST"])
+    def serverConnect():
+        ''' Get the command from the post request '''
+        command_text = request.data.get('text')
+        command_text = command_text.split(' ')
+        ''' SlackHelper class instance '''
+        slackhelper = SlackHelper()
+        ''' Actions instance '''
+        actions = Actions(slackhelper)
+
+        ''' Check if provided command is present in the allowed command or not. '''
+        if command_text[0] not in allowed_commands:
+            response_body = {
+                'text': 'Invalid Command. Try /serverconnect help for available commands'}
+        ''' Help function pending '''
+        ''' If the command is usercheck, call user priviledges checking function from the actions class '''
+        if command_text[0] == 'usercheck':
+            try:
+                if(command_text[1] == "" or command_text[2] == "" or command_text[3] == ""):
+                    response_body = {
+                        'text': 'Invalid Command. Try /serverconnect help for available commands'
+                    }
+                else:
+                    host = command_text[1]
+                    user = command_text[2]
+                    pwd = command_text[3]
+                    response_body = actions.userPrivCheck(host, user, pwd)()
+            except IndexError:
+                response_body = {
+                    'text': 'Invalid Command Format. Try /serverconnect help to check command format'
+                }
 
         ''' Prepare the response, add the response code, and return the object '''
         response = jsonify(response_body)
